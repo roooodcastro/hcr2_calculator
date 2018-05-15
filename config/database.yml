@@ -1,0 +1,23 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: hcr2_calculator
+  password: hcr2_calculator
+  socket: /var/run/mysqld/mysqld.sock
+
+development:
+  <<: *default
+  database: hcr2_development
+
+test:
+  <<: *default
+  database: hcr2_test
+
+production:
+  <<: *default
+  database: <%= ENV['RDS_DB_NAME'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host:     <%= ENV['RDS_HOSTNAME'] %>
+  port:     <%= ENV['RDS_PORT'] %>
